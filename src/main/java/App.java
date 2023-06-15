@@ -15,24 +15,24 @@ public class App {
         generate(resultFile1, resultFile2);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-
-        if (obj.hashCode() != this.hashCode()) {
-            return false;
-        }
-        return true;
-    }
-
-    public int HashCode() {
-        return hashCode();
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == this) {
+//            return true;
+//        }
+//        if (obj == null || obj.getClass() != this.getClass()) {
+//            return false;
+//        }
+//
+//        if (obj.hashCode() != this.hashCode()) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    public int HashCode() {
+//        return hashCode();
+//    }
 
     public static void generate(File file1, File file2) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
