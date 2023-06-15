@@ -86,17 +86,17 @@ public class App {
                 map.put(key, new Object[]{value});
             }
         }
-        System.out.println(toString(map));
+        System.out.println(map);
     }
 
-    public static String toString(Map map) {
-        StringBuilder str = new StringBuilder();
-        for (Object key : map.keySet()) {
-            str.append("  " + key + ": " + map.get(key) + "\n");
-        }
-        System.out.println(str);
-        return str.toString().trim();
-    }
+//    public static String toString(Map map) {
+//        StringBuilder str = new StringBuilder();
+//        for (Object key : map.keySet()) {
+//            str.append("  " + key + ": " + map.get(key) + "\n");
+//        }
+//        System.out.println(str);
+//        return str.toString().trim();
+//    }
 }
 
 
