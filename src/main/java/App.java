@@ -14,26 +14,6 @@ public class App {
 
         generate(resultFile1, resultFile2);
     }
-
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (obj == this) {
-//            return true;
-//        }
-//        if (obj == null || obj.getClass() != this.getClass()) {
-//            return false;
-//        }
-//
-//        if (obj.hashCode() != this.hashCode()) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    public int HashCode() {
-//        return hashCode();
-//    }
-
     public static void generate(File file1, File file2) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -42,61 +22,48 @@ public class App {
         });
         Map<String, Object> map2 = mapper.readValue(file2, new TypeReference<Map<String, Object>>() {
         });
-
         System.out.println(map1);
         System.out.println(map2);
 
-        StringBuilder builder = new StringBuilder();
 
-        Set<String> set = new HashSet<>();
-        Set<Object> set2 = new HashSet<>();
+        Set<String> keys = new HashSet<>(map1.keySet());
+        keys.addAll(map2.keySet());
+        List<String> listKye = new ArrayList<>(keys);
+        Collections.sort(listKye);
+        System.out.println(listKye);
+
         Map<String, Object> map = new HashMap<>();
+        for (String key : listKye) {
 
-        for (String resultMap1 : map1.keySet()) {
-            for (String resultMap2 : map2.keySet()) {
-                set.add(resultMap1);
-                set.add(resultMap2);
-            }
-        }
-        List<String> list = new ArrayList<>(set);
-        Collections.sort(list);
-//        System.out.println(list);
+            if (map1.containsKey(key) & map2.containsKey(key)) {
+                Object value1 = map1.get(key);
+                Object value2 = map2.get(key);
 
-        for (Map.Entry<String, Object> entry : map1.entrySet()) {
-            Iterator<String> itr = list.iterator();
-            String key = entry.getKey();
-            Object value = entry.getValue();
-
-            if (map2.containsKey(key)) {
-                if (value.equals(map2.get(key))) {
-                    map.put(key, map1.get(key));
+                if (value1.equals(value2)) {
+                    map.put(key, value1);
                 } else {
-                    map.put(key, new Object[]{value, map1.get(key)});
+                    map.put("-" + key, value1);
                 }
             }
-            if (!map2.containsKey(key)) {
-                map.put(key, new Object[]{value});
+            if (map1.containsKey(key) & (!map2.containsKey(key))) {
+                Object value1 = map1.get(key);
+                map.put("-" + key, value1);
             }
-        }
-        for (Map.Entry<String, Object> entry : map2.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-
-            if (!map1.containsKey(key)) {
-                map.put(key, new Object[]{value});
+            if (map2.containsKey(key) & (!map1.containsKey(key))) {
+                Object value2 = map2.get(key);
+                map.put("+" + key, value2);
+            }
+            if (map1.containsKey(key) & (map2.containsKey(key))) {
+                Object value1 = map1.get(key);
+                Object value2 = map2.get(key);
+                 if (!value1.equals(value2)) {
+                     map.put("+" + key, map2.get(key));
+                 }
             }
         }
         System.out.println(map);
     }
 
-//    public static String toString(Map map) {
-//        StringBuilder str = new StringBuilder();
-//        for (Object key : map.keySet()) {
-//            str.append("  " + key + ": " + map.get(key) + "\n");
-//        }
-//        System.out.println(str);
-//        return str.toString().trim();
-//    }
 }
 
 
