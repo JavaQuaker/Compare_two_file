@@ -74,7 +74,8 @@ public class App {
                     builder.append(key).append(": " + " ").append(value).append("\n");
                 }
             }
-            System.out.println(builder);
+
+            System.out.println(builder.toString().replaceAll("\\s+$",""));
             System.out.println("}");
             return builder.toString();
         }
