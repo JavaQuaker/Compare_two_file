@@ -14,7 +14,7 @@ public class App {
 
         generate(resultFile1, resultFile2);
     }
-    public static void generate(File file1, File file2) throws IOException {
+    public static String generate(File file1, File file2) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
         Map<String, Object> map1 = mapper.readValue(file1, new TypeReference<Map<String, Object>>() {
@@ -28,42 +28,47 @@ public class App {
 
         for (String key : treeSet) {
 
-            Map<String, Object> map = new HashMap<>();
+
             if (map1.containsKey(key) & map2.containsKey(key)) {
                 Object value1 = map1.get(key);
                 Object value2 = map2.get(key);
 
+                Map<String, Object> map = new HashMap<>();
                 if (value1.equals(value2)) {
+
                     map.put("    " + key, value1);
                 } else {
                     map.put("  " + "-" + " " + key, value1);
                 }
+                ListMap.add(map);
             }
-            Map<String, Object> map3 = new HashMap<>();
+
             if (map1.containsKey(key) & (!map2.containsKey(key))) {
+                Map<String, Object> map = new HashMap<>();
                 Object value1 = map1.get(key);
-                map3.put("  " + "-" + " " + key, value1);
+                map.put("  " + "-" + " " + key, value1);
+                ListMap.add(map);
             }
-            Map<String, Object> map4 = new HashMap<>();
+
             if (map2.containsKey(key) & (!map1.containsKey(key))) {
+                Map<String, Object> map = new HashMap<>();
                 Object value2 = map2.get(key);
-                map4.put("  " + "+" + " " + key, value2);
+                map.put("  " + "+" + " " + key, value2);
+                ListMap.add(map);
             }
-            Map<String, Object> map5 = new HashMap<>();
+
             if (map1.containsKey(key) & (map2.containsKey(key))) {
+                Map<String, Object> map = new HashMap<>();
                 Object value1 = map1.get(key);
                 Object value2 = map2.get(key);
                 if (!value1.equals(value2)) {
-                    map5.put("  " + "+" + " " + key, map2.get(key));
-
+                    map.put("  " + "+" + " " + key, map2.get(key));
+                    ListMap.add(map);
                 }
+
             }
-            ListMap.add(map);
-            ListMap.add(map3);
-            ListMap.add(map4);
-            ListMap.add(map5);
         }
-        toString(ListMap);
+        return toString(ListMap);
     }
     public static String toString(List<Map<String, Object>> List) {
             StringBuilder builder = new StringBuilder();
