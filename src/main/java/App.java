@@ -8,7 +8,7 @@ import java.util.*;
 public class App {
     static File resultFile1 = new File("D:/Test_json/Test_1.txt");
     static File resultFile2 = new File("D:/Test_json/Test_2.txt");
-
+    static List<Map<String, Object>> ListMap = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -17,54 +17,75 @@ public class App {
     public static void generate(File file1, File file2) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
-
         Map<String, Object> map1 = mapper.readValue(file1, new TypeReference<Map<String, Object>>() {
         });
         Map<String, Object> map2 = mapper.readValue(file2, new TypeReference<Map<String, Object>>() {
         });
-        System.out.println(map1);
-        System.out.println(map2);
 
 
-        Set<String> keys = new HashSet<>(map1.keySet());
-        keys.addAll(map2.keySet());
-        List<String> listKye = new ArrayList<>(keys);
-        Collections.sort(listKye);
-        System.out.println(listKye);
+        TreeSet<String> treeSet = new TreeSet<String>(map1.keySet());
+        treeSet.addAll(map2.keySet());
 
-        Map<String, Object> map = new HashMap<>();
-        for (String key : listKye) {
+        for (String key : treeSet) {
 
+            Map<String, Object> map = new HashMap<>();
             if (map1.containsKey(key) & map2.containsKey(key)) {
                 Object value1 = map1.get(key);
                 Object value2 = map2.get(key);
 
                 if (value1.equals(value2)) {
-                    map.put(key, value1);
+                    map.put("    " + key, value1);
                 } else {
-                    map.put("-" + key, value1);
+                    map.put("  " + "-" + " " + key, value1);
                 }
             }
+            Map<String, Object> map3 = new HashMap<>();
             if (map1.containsKey(key) & (!map2.containsKey(key))) {
                 Object value1 = map1.get(key);
-                map.put("-" + key, value1);
+                map3.put("  " + "-" + " " + key, value1);
             }
+            Map<String, Object> map4 = new HashMap<>();
             if (map2.containsKey(key) & (!map1.containsKey(key))) {
                 Object value2 = map2.get(key);
-                map.put("+" + key, value2);
+                map4.put("  " + "+" + " " + key, value2);
             }
+            Map<String, Object> map5 = new HashMap<>();
             if (map1.containsKey(key) & (map2.containsKey(key))) {
                 Object value1 = map1.get(key);
                 Object value2 = map2.get(key);
-                 if (!value1.equals(value2)) {
-                     map.put("+" + key, map2.get(key));
-                 }
+                if (!value1.equals(value2)) {
+                    map5.put("  " + "+" + " " + key, map2.get(key));
+
+                }
             }
+            ListMap.add(map);
+            ListMap.add(map3);
+            ListMap.add(map4);
+            ListMap.add(map5);
         }
-        System.out.println(map);
+        toString(ListMap);
+    }
+    public static String toString(List<Map<String, Object>> List) {
+            StringBuilder builder = new StringBuilder();
+            System.out.println("{");
+            for (Map<String, Object> result : ListMap) {
+                for (String key : result.keySet()) {
+                    Object value = result.get(key);
+                    builder.append(key).append(": " + " ").append(value).append("\n");
+                }
+            }
+            System.out.println(builder);
+            System.out.println("}");
+            return builder.toString();
+        }
     }
 
-}
+
+
+
+
+
+
 
 
 
