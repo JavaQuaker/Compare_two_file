@@ -28,18 +28,25 @@ import java.util.Map;
 public class AppTest {
     File file1;
     File file2;
+    File file3;
+    File file4;
     String result;
+    String resultEmpty;
     @BeforeEach
     public void beforeEach() throws IOException {
-        file1 = new File("D:/Test_json/Test_1.txt");
-        file2 = new File("D:/Test_json/Test_2.txt");
+        file1 = new File("src/test/resources/Test_1.txt");
+        file2 = new File("src/test/resources/Test_2.txt");
+        file3 = new File("src/test/resources/Test_3.txt");
+        file4 = new File("src/test/resources/Test_4.txt");
+
 
     }
     @Test
     public void Test1() throws IOException {
-        result = Files.readString(Paths.get("D:/Test_json/AppTest.txt"));
+        result = Files.readString(Paths.get("src/test/resources/AppTest.txt"));
         String expected = "{" + "\n" + App.generate(file1, file2) + "}";
         assertThat(result).isEqualTo(expected);
     }
+
 }
 
