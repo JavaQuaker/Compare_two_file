@@ -8,7 +8,7 @@ import java.util.*;
 public class App {
     static File resultFile1 = new File("D:/Test_json/Test_1.txt");
     static File resultFile2 = new File("D:/Test_json/Test_2.txt");
-    static List<Map<String, Object>> ListMap = new ArrayList<>();
+    public static List<Map<String, Object>> ListMap = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
