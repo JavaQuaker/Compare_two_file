@@ -1,11 +1,16 @@
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class App {
+
+
+
+  public class App {
     static File resultFile1 = new File("src/test/resources/Test_1.txt");
     static File resultFile2 = new File("src/test/resources/Test_2.txt");
     public static List<Map<String, Object>> ListMap = new ArrayList<>();
@@ -13,7 +18,9 @@ public class App {
     public static void main(String[] args) throws IOException {
 
         generate(resultFile1, resultFile2);
+        Parser.compareYamlFile(Parser.resultFile3, Parser.resultFile4);
     }
+
     public static String generate(File file1, File file2) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -65,7 +72,6 @@ public class App {
                     map.put("  " + "+" + " " + key, map2.get(key));
                     ListMap.add(map);
                 }
-
             }
         }
         return toString(ListMap);
@@ -85,42 +91,3 @@ public class App {
             return builder.toString();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

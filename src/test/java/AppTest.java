@@ -36,15 +36,22 @@ public class AppTest {
     public void beforeEach() throws IOException {
         file1 = new File("src/test/resources/Test_1.txt");
         file2 = new File("src/test/resources/Test_2.txt");
-        file3 = new File("src/test/resources/Test_3.txt");
-        file4 = new File("src/test/resources/Test_4.txt");
 
+        file3 = new File("src/test/resources/Test_yaml_1.txt");
+        file4 = new File("src/test/resources/Test_yaml_2.txt");
 
     }
     @Test
     public void Test1() throws IOException {
-        result = Files.readString(Paths.get("src/test/resources/AppTest.txt"));
+        result = Files.readString(Paths.get("src/test/resources/Test.txt"));
         String expected = "{" + "\n" + App.generate(file1, file2) + "}";
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void Test2() throws IOException {
+        result = Files.readString(Paths.get("src/test/resources/Test_yaml.txt"));
+        String expected = "{" + "\n" + Parser.compareYamlFile(file3, file4) + "}";
         assertThat(result).isEqualTo(expected);
     }
 
